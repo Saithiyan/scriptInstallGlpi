@@ -84,6 +84,7 @@ a2enmod proxy_fcgi setenvif
 a2enconf php8.2-fpm
 systemctl reload apache2
 
+clear
 #-----------AFFICHAGE INFO----------
 # Couleurs ANSI
 CYAN='\033[1;36m'
