@@ -9,7 +9,7 @@ apt-get install php-xml php-common php-json php-mysql php-mbstring php-curl php-
 mysql_secure_installation
 mysql -h localhost -u root -p -e "
 CREATE DATABASE db23_glpi;
-GRANT ALL PRIVILEGES ON db23_glpi.* TO 'glpi_adm'@'localhost' IDENTIFIED BY 'poseidon';
+GRANT ALL PRIVILEGES ON db23_glpi.* TO 'glpiadmin'@'localhost' IDENTIFIED BY 'poseidon';
 FLUSH PRIVILEGES;"
 
 # Telcharger et installation GLPI 
@@ -83,3 +83,38 @@ systemctl restart php8.2-fpm.service
 a2enmod proxy_fcgi setenvif
 a2enconf php8.2-fpm
 systemctl reload apache2
+
+#-----------AFFICHAGE INFO----------
+# Couleurs ANSI
+CYAN='\033[1;36m'
+GREEN='\033[1;32m'
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m' # Pas de couleur
+
+# Récupération de l'adresse IP du serveur
+SERVER_IP=$(hostname -I | awk '{print $1}')
+
+# URL pour accéder à GLPI :
+echo -e "${CYAN}====================================${NC}"
+echo -e "${CYAN}       URL pour accéder à GLPI      ${NC}"
+echo -e "${CYAN}        http://${SERVER_IP}         ${NC}"
+echo -e "${CYAN}====================================${NC}"
+# Affichage des informations :
+echo -e "
+${GREEN}Serveur SQL (MariaDB ou MySQL):${NC}
+${YELLOW}localhost${NC}
+
+${GREEN}Utilisateur SQL:${NC}
+${YELLOW}glpiadmin${NC}
+
+${GREEN}Mot de Passe SQL:${NC}
+${YELLOW}poseidon${NC}\n"
+
+# Informations de connexion par défaut pour GLPI :
+echo -e "${GREEN}Pour se connecter à l'interface GLPI :${NC}
+${GREEN}Compte par défaut:${NC} ${RED}glpi${NC}
+${GREEN}Mot de passe par défaut:${NC} ${RED}glpi${NC}\n"
+
+# Message de sécurité en rouge :
+echo -e "${RED}SECURITE :${NC} ${RED}N'oubliez pas de supprimer le fichier d'installation /var/www/glpi/install/install.php !!!${NC}\n"
