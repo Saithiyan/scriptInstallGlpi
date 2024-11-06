@@ -118,4 +118,4 @@ ${GREEN}Compte par défaut:${NC} ${RED}glpi${NC}
 ${GREEN}Mot de passe par défaut:${NC} ${RED}glpi${NC}\n"
 
 # Message de sécurité en rouge :
-echo -e "${RED}SECURITE :${NC} ${RED}N'oubliez pas de supprimer le fichier d'installation /var/www/glpi/install/install.php !!!${NC}\n"
+echo -e "${RED}*ATTENTION SÉCURITÉ :${NC} ${RED}N'oubliez pas de supprimer le fichier d'installation /var/www/glpi/install/install.php !!!${NC}\n"
