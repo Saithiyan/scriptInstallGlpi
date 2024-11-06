@@ -7,12 +7,10 @@ apt-get install php-xml php-common php-json php-mysql php-mbstring php-curl php-
 
 # BDD insallation et configuration :
 mysql_secure_installation
-mysql -h localhost -u root -p poseidon -e "
+mysql -h localhost -u root -p -e "
 CREATE DATABASE db23_glpi;
-GRANT ALL PRIVILEGES ON db23_glpi.* TO glpi_adm@localhost IDENTIFIED BY "poseidon";
-FLUSH PRIVILEGES;
-EXIT
-"
+GRANT ALL PRIVILEGES ON db23_glpi.* TO 'glpi_adm'@'localhost' IDENTIFIED BY 'poseidon';
+FLUSH PRIVILEGES;"
 
 # Telcharger et installation GLPI 
 cd /tmp
@@ -79,6 +77,9 @@ a2enmod rewrite
 systemctl restart apache2
 
 apt-get install php8.2-fpm
+sed -i '1422s/^session.cookie_httponly\s*=.*/session.cookie_httponly = on/' /etc/php/8.2/fpm/php.ini
+systemctl restart php8.2-fpm.service
+
 a2enmod proxy_fcgi setenvif
 a2enconf php8.2-fpm
 systemctl reload apache2
