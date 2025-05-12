@@ -14,8 +14,8 @@ FLUSH PRIVILEGES;"
 
 # Telcharger et installation GLPI 
 cd /tmp
-wget https://github.com/glpi-project/glpi/releases/download/10.0.16/glpi-10.0.16.tgz
-tar -xzvf glpi-10.0.16.tgz -C /var/www/
+wget https://github.com/glpi-project/glpi/releases/download/10.0.18/glpi-10.0.18.tgz
+tar -xzvf glpi-10.0.18.tgz -C /var/www/
 chown www-data:www-data /var/www/glpi/ -R
 
 mkdir /etc/glpi
