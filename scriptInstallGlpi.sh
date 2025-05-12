@@ -8,8 +8,8 @@ apt-get install php-xml php-common php-json php-mysql php-mbstring php-curl php-
 # BDD insallation et configuration :
 mysql_secure_installation
 mysql -h localhost -u root -p -e "
-CREATE DATABASE db23_glpi;
-GRANT ALL PRIVILEGES ON db_glpi.* TO 'glpiadmin'@'localhost' IDENTIFIED BY 'poseidon';
+CREATE DATABASE dbglpi;
+GRANT ALL PRIVILEGES ON dbglpi.* TO 'glpiadmin'@'localhost' IDENTIFIED BY 'poseidon';
 FLUSH PRIVILEGES;"
 
 # Telcharger et installation GLPI 
