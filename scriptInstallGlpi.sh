@@ -6,7 +6,55 @@ apt-get install apache2 php mariadb-server -y
 apt-get install php-xml php-common php-json php-mysql php-mbstring php-curl php-gd php-intl php-zip php-bz2 php-imap php-apcu php-ldap -y
 
 # BDD insallation et configuration :
-mysql_secure_installation
+# Demande du mot de passe à l'utilisateur
+read -s -p "Entrez le nouveau mot de passe root MySQL : " NEW_PASSWORD
+echo ""
+
+# Création du script expect temporaire
+cat <<EOF > mysql_secure_install.expect
+#!/usr/bin/expect -f
+
+set timeout 10
+spawn mysql_secure_installation
+
+expect "Enter current password for root (enter for none):"
+send "\r"
+
+expect "Switch to unix_socket authentication"
+send "n\r"
+
+expect "Change the root password?"
+send "y\r"
+
+expect "New password:"
+send "$NEW_PASSWORD\r"
+
+expect "Re-enter new password:"
+send "$NEW_PASSWORD\r"
+
+expect "Remove anonymous users?"
+send "y\r"
+
+expect "Disallow root login remotely?"
+send "y\r"
+
+expect "Remove test database and access to it?"
+send "y\r"
+
+expect "Reload privilege tables now?"
+send "y\r"
+
+expect eof
+EOF
+
+# Rendre le script temporaire exécutable et l'exécuter
+chmod +x mysql_secure_install.expect
+./mysql_secure_install.expect
+
+# Nettoyer le fichier temporaire
+rm -f mysql_secure_install.expect
+
+
 mysql -h localhost -u root -p -e "
 CREATE DATABASE dbglpi;
 GRANT ALL PRIVILEGES ON dbglpi.* TO 'glpiadmin'@'localhost' IDENTIFIED BY 'poseidon';
