@@ -13,9 +13,22 @@ GRANT ALL PRIVILEGES ON db_glpi.* TO 'glpiadmin'@'localhost' IDENTIFIED BY 'pose
 FLUSH PRIVILEGES;"
 
 # Telcharger et installation GLPI 
+# Définir le dépôt GitHub
+REPO="glpi-project/glpi"
+
+# Récupérer le dernier tag de la release
+LATEST_TAG=$(curl -s https://api.github.com/repos/$REPO/releases/latest | grep '"tag_name":' | awk -F'"' '{print $4>
+# Construire l'URL du fichier à télécharger
+FILE_NAME="glpi-$LATEST_TAG.tgz"
+DOWNLOAD_URL="https://github.com/$REPO/releases/download/$LATEST_TAG/$FILE_NAME"
+
+echo "Dernière version : $LATEST_TAG"
+echo "Lien de téléchargement : $DOWNLOAD_URL"
+
+# Télécharger le fichier
 cd /tmp
-wget https://github.com/glpi-project/glpi/releases/download/10.0.18/glpi-10.0.18.tgz
-tar -xzvf glpi-10.0.18.tgz -C /var/www/
+wget "$DOWNLOAD_URL"
+tar -xzvf $FILE_NAME -C /var/www/
 chown www-data:www-data /var/www/glpi/ -R
 
 mkdir /etc/glpi
