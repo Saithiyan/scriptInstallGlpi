@@ -17,7 +17,7 @@ FLUSH PRIVILEGES;"
 REPO="glpi-project/glpi"
 
 # Récupérer le dernier tag de la release
-LATEST_TAG=$(curl -s https://api.github.com/repos/$REPO/releases/latest | grep '"tag_name":' | awk -F'"' '{print $4>
+LATEST_TAG=$(curl -s https://api.github.com/repos/$REPO/releases/latest | grep '"tag_name":' | awk -F'"' '{print $4>)
 # Construire l'URL du fichier à télécharger
 FILE_NAME="glpi-$LATEST_TAG.tgz"
 DOWNLOAD_URL="https://github.com/$REPO/releases/download/$LATEST_TAG/$FILE_NAME"
